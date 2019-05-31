@@ -72,14 +72,36 @@ for c in cities:
 # Tucson: (32.1558,-110.8777)
 # Salt Lake City: (40.7774,-111.9301)
 
-# TODO Get latitude and longitude values from the user
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
   within = []
-
-  # TODO Ensure that the lat and lon valuse are all floats
+  
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
+  for city in cities:
+    
+    if city.lat > min(lat1,lat2)\
+      and city.lat < max(lat1,lat2)\
+      and city.lon > min(lon1,lon2)\
+      and city.lon < max(lon1,lon2):
+      within.append(city)
 
   return within
+
+## I/O implementation:
+print('\nFind all cities within a square!')
+# Get latitude and longitude values from the user
+input1 = input('Enter lat1,lon1:').split(',')
+input2 = input('Enter lat2,lon2:').split(',')
+
+# Ensure that the lat and lon valuse are all floats, and
+# get rid of any spaces they might have entered
+lat1, lon1 = float(input1[0].strip()), float(input1[1].strip())
+lat2, lon2 = float(input2[0].strip()), float(input2[1].strip())
+
+within = cityreader_stretch(lat1, lon1, lat2, lon2, cities=cities)
+# print out results
+print()
+for city in within:
+  print(f'{city.name}: ({city.lat},{city.lon})')
